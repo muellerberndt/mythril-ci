@@ -3,15 +3,8 @@
 #
 
 # Pull base image
-FROM ubuntu:16.04
+FROM python:3.5.4
 
-# Install Python && Necessary build tools
-RUN \
-  apt-get update && \
-  apt-get install -y build-essential software-properties-common libssl-dev && \
-  apt-get install -y python python-dev python-pip python-virtualenv && \
-  rm -rf /var/lib/apt/lists/*
-  
 # Install Mythril
 RUN \
   pip install mythril
@@ -21,3 +14,7 @@ RUN \
   add-apt-repository ppa:ethereum/ethereum && \
   apt-get update && \
   apt-get -y install solc
+ 
+COPY origin.sol ~/origin.sol
+
+RUN myth -x origin.sol
