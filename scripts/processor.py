@@ -44,7 +44,7 @@ if(is_truffle_project):
     log.write("\nProcessing of Truffle Project Completed")
     if(re.search('Error', result, re.IGNORECASE)):
       log.write("\nFound Error in Solidity Code. Failing Build")
-      process.exit(-1)
+      exit(1)
 
 # Get all Solidity files in the repository
 files = glob(getcwd() + '/**/*.sol', recursive=True)
@@ -59,7 +59,7 @@ for file in files:
         if(fail_on_first_error):
             log.write("\n-----Failing Build Since Fail on first error is enabled----\n")
             log.close()
-            exit(-1)
+            exit(1)
         else:
             fail_build = True
 
@@ -67,7 +67,7 @@ for file in files:
 if(fail_build):
     log.write("Failing build since Errors / Warnings (if set) are found in the Code")
     log.close()
-    exit(-1)
+    exit(1)
 
 log.write("Build passed since no issues were found")
 log.close()
